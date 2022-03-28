@@ -59,14 +59,17 @@ def video_process(video_file_path, dst_root_path, ext, fps=-1, size=240):
 
 
 def class_process(class_dir_path, dst_root_path, ext, fps=-1, size=240):
+    # print("class_dir_path is " + str(class_dir_path))
     if not class_dir_path.is_dir():
         return
-    dst_class_path = dst_root_path / class_dir_path.name
+    if 'test/' in str(class_dir_path) :
+        dst_class_path = dst_root_path / 'test' / class_dir_path.name
+    else:
+        dst_class_path = dst_root_path / class_dir_path.name
     dst_class_path.mkdir(exist_ok=True)
 
     for video_file_path in sorted(class_dir_path.iterdir()):
-        # print(video_file_path)
-        # print(dst_class_path)
+        # print(str(video_file_path) + ' ---- ' + str(dst_class_path))
 
         video_process(video_file_path, dst_class_path, ext, fps, size)
 
@@ -86,18 +89,18 @@ if __name__ == '__main__':
         type=str,
         help='Dataset name (kinetics | mit | ucf101 | hmdb51 | activitynet)')
     parser.add_argument(
-        '--n_jobs', default=-1, type=int, help='Number of parallel jobs')
+        '--n_jobs', default=3, type=int, help='Number of parallel jobs')
     parser.add_argument(
         '--fps',
-        default=-1,
+        default=1,
         type=int,
         help=('Frame rates of output videos. '
               '-1 means original frame rates.'))
     parser.add_argument(
-        '--size', default=240, type=int, help='Frame size of output videos.')
+        '--size', default=640, type=int, help='Frame size of output videos.')
     args = parser.parse_args()
 
-    if args.dataset in ['kinetics', 'mit', 'activitynet', 'zhedang']:
+    if args.dataset in ['kinetics', 'mit', 'activitynet', 'zhedang', 'qualitycheck']:
         ext = '.mp4'
     else:
         ext = '.avi'
@@ -111,10 +114,17 @@ if __name__ == '__main__':
                                  for video_file_path in video_file_paths)
     else:
         class_dir_paths = [x for x in sorted(args.dir_path.iterdir())]
+        # print(class_dir_paths)
         test_set_video_path = args.dir_path / 'test'
+        test_set_video_paths = Path(test_set_video_path)
+        # print(test_set_video_paths)
         if test_set_video_path.exists():
-            class_dir_paths.append(test_set_video_path)
-
+            test_class_dir_paths = [x for x in sorted(test_set_video_paths.iterdir())]
+            # print(test_class_dir_paths)
+            for iter in test_class_dir_paths:
+                class_dir_paths.append(test_set_video_path / iter.name)
+        
+        args.dst_path.mkdir(exist_ok=True)
         status_list = Parallel(
             n_jobs=args.n_jobs,
             backend='threading')(delayed(class_process)(

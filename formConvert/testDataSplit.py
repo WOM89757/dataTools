@@ -11,16 +11,10 @@ args = parser.parse_args()
 
 with open(args.target,"w") as f:
     for line in open(args.source): 
-        res = line.rsplit("/", 1)
-        # print(res[-1])
-        f.write(res[-1])
-
-
-# with open("20220318.v1.txt","w") as f:
-#     for line in open("20220318.txt"): 
-#         res = line.rsplit("/", 1)
-#         # print(res[-1])
-#         f.write(res[-1])
+        if line.find("####") != -1 :
+            res = line.rsplit("/", 1)
+            # print(res[-1], end="")
+            f.write(res[-1])
 
 
 # python testDataSplit.py --source inputtest.txt --target resulttest.txt

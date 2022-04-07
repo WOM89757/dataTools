@@ -48,7 +48,10 @@ for class_dir_paths in sorted(args.dir_path.iterdir()):
             for iter in img_list:
                 # print(iter)
                 oldfile =  str(video_file_path) + "/" + iter
-                newfile = '{}/image_{}.jpg'.format(dst_class_path, count)
+                end_pos = str(iter).rfind('.')
+                suffix_name = str(iter)[end_pos + 1:]
+                # print(suffix_name)
+                newfile = '{}/{}_image_{}.{}'.format(dst_class_path, class_dir_path.name, count, suffix_name)
                 # print(oldfile)
                 # print(newfile)
                 count += 1

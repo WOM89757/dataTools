@@ -1,3 +1,4 @@
+.vscode
 *.txt
 datasets
 __pycache__

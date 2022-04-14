@@ -8,14 +8,14 @@ args = parser.parse_args()
 
 # print(args.source)
 
-target_name = args.source[:args.source.find('-') + 1] + 'result.txt'
-
+target_name = args.source[:args.source.rfind('-') + 1] + 'result.txt'
 with open(target_name, "w") as f:
     for line in open(args.source): 
         if line.find("####") != -1 :
             res = line.rsplit("/", 1)
             # print(res[-1], end="")
             f.write(res[-1])
+print('save to ' + target_name)
 
 
 # python testDataSplit.py --source inputtest.txt --target resulttest.txt

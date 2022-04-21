@@ -2,3 +2,4 @@
 *.txt
 datasets
 __pycache__
+*.jpg

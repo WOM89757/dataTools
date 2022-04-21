@@ -12,7 +12,7 @@ print(args.file2)
 
 count = 0
 with open("diff_{}_{}.txt".format(args.file1[:args.file1.find('.txt')],args.file2[:args.file2.find('.txt')]), "w") as f:
-
+    print('result save to {}'.format(f.name))
     for line1 in open(args.file1): 
         v_name = line1[:line1.find('.mp4')]
         for line2 in open(args.file2): 

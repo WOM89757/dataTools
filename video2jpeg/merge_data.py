@@ -44,17 +44,30 @@ for class_dir_paths in sorted(args.dir_path.iterdir()):
         for video_file_path in sorted(class_dir_path.iterdir()):
             # print(video_file_path)
             # print(dst_class_path)
-            img_list = os.listdir(video_file_path)
-            for iter in img_list:
-                # print(iter)
-                oldfile =  str(video_file_path) + "/" + iter
-                end_pos = str(iter).rfind('.')
-                suffix_name = str(iter)[end_pos + 1:]
-                # print(suffix_name)
-                newfile = '{}/{}_image_{}.{}'.format(dst_class_path, class_dir_path.name, count, suffix_name)
-                # print(oldfile)
-                # print(newfile)
-                count += 1
-                shutil.copyfile(oldfile, newfile)
+            oldfile =  str(video_file_path)
+            end_pos = str(video_file_path).rfind('.')
+            suffix_name = str(video_file_path)[end_pos + 1:]
+            # print(suffix_name)
+            newfile = '{}/{}_image_{}.{}'.format(dst_class_path, class_dir_path.name, count, suffix_name)
+            # print(oldfile)
+            # print(newfile)
+            count += 1
+            shutil.copyfile(oldfile, newfile)
+
+        # for video_file_path in sorted(class_dir_path.iterdir()):
+        #     # print(video_file_path)
+        #     # print(dst_class_path)
+        #     img_list = os.listdir(video_file_path)
+        #     for iter in img_list:
+        #         # print(iter)
+        #         oldfile =  str(video_file_path) + "/" + iter
+        #         end_pos = str(iter).rfind('.')
+        #         suffix_name = str(iter)[end_pos + 1:]
+        #         # print(suffix_name)
+        #         newfile = '{}/{}_image_{}.{}'.format(dst_class_path, class_dir_path.name, count, suffix_name)
+        #         print(oldfile)
+        #         print(newfile)
+        #         count += 1
+        #         # shutil.copyfile(oldfile, newfile)
 
 print('finished !')

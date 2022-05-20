@@ -89,7 +89,7 @@ if __name__ == '__main__':
         type=str,
         help='Dataset name (kinetics | mit | ucf101 | hmdb51 | activitynet)')
     parser.add_argument(
-        '--n_jobs', default=3, type=int, help='Number of parallel jobs')
+        '--n_jobs', default=6, type=int, help='Number of parallel jobs')
     parser.add_argument(
         '--fps',
         default=1,

@@ -51,6 +51,12 @@ with open("diff_{}_{}.txt".format(args.file1[:args.file1.find('.txt')],args.file
                 # f.write('1-' + line1)
                 # f.write('2-' + line2)
                 break
+            # elif line1 == line2:
+            #     val = int(line1[line1.find('.mp4') + 5:len(line1) - 1])
+            #     val2 = int(line2[line2.find('.mp4') + 5:len(line2) - 1])
+            #     if val == 8 and val == val2:
+            #         f.write('{}\t{}\t{}\n'.format(v_name, int(line1[line1.find('.mp4') + 5:len(line1) - 1]), int(line2[line2.find('.mp4') + 5:len(line2) - 1])))
+
 print('find {} line is not equal '.format(count))
     #     if line1.find("####") != -1 :
     #         res = line.rsplit("/", 1)

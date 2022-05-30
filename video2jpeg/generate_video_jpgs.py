@@ -84,12 +84,13 @@ if __name__ == '__main__':
         type=Path,
         help='Directory path of jpg videos')
     parser.add_argument(
-        'dataset',
-        default='',
+        '-d',
+        '--dataset',
+        default='zhedang',
         type=str,
         help='Dataset name (kinetics | mit | ucf101 | hmdb51 | activitynet)')
     parser.add_argument(
-        '--n_jobs', default=6, type=int, help='Number of parallel jobs')
+        '--n_jobs', default=4, type=int, help='Number of parallel jobs')
     parser.add_argument(
         '--fps',
         default=1,

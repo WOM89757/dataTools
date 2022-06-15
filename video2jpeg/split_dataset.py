@@ -12,13 +12,15 @@ parser.add_argument(
     'dir_path', default='datesets/img', type=Path, help='Directory path of videos')
 parser.add_argument(
     'dst_path', default='datesets/splitimg', type=Path, help='Directory path of jpg videos')
+parser.add_argument(
+    '--r', default=0.7, type=float, help='train ratio')
 args = parser.parse_args()
 
 dst_dir_path = args.dst_path
 dst_dir_path.mkdir(exist_ok=True)
 split_img_flag = True
 split_info_file = codecs.open(os.path.join(dst_dir_path, "split_info.txt"), 'w')
-
+random.seed(2)
 
 def split(all_list, shuffle=False, ratio=0.8):
     num = len(all_list)
@@ -31,7 +33,7 @@ def split(all_list, shuffle=False, ratio=0.8):
     test = all_list[offset:]
     return train, test
 
-train_ratio = 0
+train_ratio = args.r
 split_info_file.write("data split ratio is {0}\n".format(train_ratio))
 
 for class_dir_paths in sorted(args.dir_path.iterdir()):
@@ -50,7 +52,6 @@ for class_dir_paths in sorted(args.dir_path.iterdir()):
     traindatas, testdatas = split(video_imgs, shuffle=True, ratio=train_ratio)
     # print('train({}): {}'.format(len(traindatas), traindatas))
     # print('testdatas({}): {}'.format(len(testdatas), testdatas))
-
     train_count = 0
     test_count = 0
     if split_img_flag:
